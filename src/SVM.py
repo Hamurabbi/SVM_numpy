@@ -11,10 +11,12 @@ class SVM(object):
     def fit(self, x, y):
         weights = np.zeros(len(x[0]))
         output = []
+        
+        #Gradient descent training
         for epochs in range(self.epochs):
             for i, val in enumerate(x):
                 if (y[i]*np.dot(x[i],weights) < 1):
-                    weights = weights + self.l_rate * ((y[i]*x[i]) - (2*(1/self.epochs)*weights))
+                    weights = weights + self.l_rate * ((x[i]*y[i]) + (-2*(1/self.epochs)*weights))
                 else:
                     weights = weights + self.l_rate * (-2*(1/self.epochs)*weights)
         
@@ -22,4 +24,5 @@ class SVM(object):
             output.append(np.dot(x[i],weights))
             
         return weights, output
+    
     
